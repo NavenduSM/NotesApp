@@ -16,6 +16,8 @@ routers.post('/forgot-password', ForgotPassword);
 
 routers.post('/reset-password', ResetPassword);
 
+routers
+
 
 
 
