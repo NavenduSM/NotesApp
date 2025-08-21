@@ -18,17 +18,6 @@ routers.post('/forgot-password', ForgotPassword);
 
 routers.post('/reset-password', ResetPassword);
 
-routers.get('/get-notes', checkAuth, getNotes);
-
-routers.post("/create-note", checkAuth, createNote);
-
-routers.put("/update-note", checkAuth, updateNote);
-
-routers.delete("/delete-note", checkAuth, deleteNote);
-
-
-
-
 
 
 export default routers

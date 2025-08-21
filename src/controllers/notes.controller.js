@@ -30,13 +30,13 @@ export const createNote = async (req, res) => {
 }
 
 export const updateNote = async (req, res) => {
-    const { noteId, title, content } = req.body;    
-    if (!noteId || !title || !content) {
-        return res.status(400).json({ success: false, message: "Note ID, title, and content are required" });
+    const { noteId } = req.params;
+    const { title, content } = req.body;    
+    if (!noteId) {
+        return res.status(400).json({ success: false, message: "Note ID with title or content are required" });
     }
     try {
-        const note = await Note.findOneAndUpdate(
-            { _id: noteId, userId: req.user.id },
+        const note = await Note.findOneAndUpdate({ _id: noteId, userId: req.user.id }, 
             { title, content },
             { new: true }
         );
@@ -51,7 +51,7 @@ export const updateNote = async (req, res) => {
 }
 
 export const deleteNote = async (req, res) => {
-    const { noteId } = req.body;
+    const { noteId } = req.params;
     if (!noteId) {
         return res.status(400).json({ success: false, message: "Note ID is required" });
     }
