@@ -130,9 +130,9 @@ export const ResetPassword = async (req, res) => {
 }
 
 export const VerifyEmail = async (req, res) => {
-    const { email, verificationToken } = req.body;
-    if (!email || !verificationToken) {
-        return res.status(400).json({success: false, message: "Email and verification token are required" });
+    const { verificationToken } = req.body;
+    if (!verificationToken) {
+        return res.status(400).json({success: false, message: "verification token is required" });
     }
     try {
         const user = await User.findOne({verificationToken, verificationTokenExpiresAt: { $gt: Date.now() } });
