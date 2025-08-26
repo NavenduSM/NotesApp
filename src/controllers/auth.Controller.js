@@ -159,11 +159,11 @@ export const VerifyEmail = async (req, res) => {
 
 export const checkAuth = async (req, res) => {
     try {
-        const user = await User.findById(req.userId).select('-password');
+        const user = await User.findById(req.user.id);
         if (!user) {
             return res.status(404).json({success: false, isAuthenticated: false, message: "User not found" });
         }
-        res.status(200).json({success: true, isAuthenticated: true, user });
+        res.status(200).json({success: true, isAuthenticated: true, user: user });
     } catch (error) {
         console.error("Error during auth check:", error);
         res.status(500).json({success: false, isAuthenticated: false, message: "Internal server error" });
