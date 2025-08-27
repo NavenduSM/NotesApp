@@ -45,7 +45,7 @@ export const sendResetPasswordEmail = async (email, resetToken) => {
             from: process.env.EMAIL_FROM,
             to: email,
             subject: "Reset your password",
-            html: PASSWORD_RESET_REQUEST_TEMPLATE.replace("{resetURL}", `${process.env.APP_URL}/reset-password?token=${resetToken}`),
+            html: PASSWORD_RESET_REQUEST_TEMPLATE.replace("{resetURL}", resetToken), 
             category: "Password Reset",
         });
         console.log("Reset password email sent:", info.messageId);

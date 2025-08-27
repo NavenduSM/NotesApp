@@ -103,17 +103,17 @@ export const ForgotPassword = async (req, res) => {
 
 export const ResetPassword = async (req, res) => {
     const {resetToken} = req.params;
-    const { email, newPassword } = req.body;
-    if (!email || !resetToken || !newPassword) {
-        return res.status(400).json({success: false, message: "Email, reset token and new password are required" });
+    const { password } = req.body;
+    if (!resetToken || !password) {
+        return res.status(400).json({success: false, message: "reset token and new password are required" });
     }
     try {
-        const user = await User.findOne({ email, resetPasswordToken: resetToken, resetPasswordExpiresAt: { $gt: Date.now() } });
+        const user = await User.findOne({ resetPasswordToken: resetToken, resetPasswordExpiresAt: { $gt: Date.now() } });
         if (!user) {
             return res.status(404).json({success: false, message: "User not found or token expired" });
         }
 
-        const hashedPassword = await bcrypt.hash(newPassword, 10);
+        const hashedPassword = await bcrypt.hash(password, 10);
         user.password = hashedPassword;
         user.resetPasswordToken = undefined;
         user.resetPasswordExpiresAt = undefined;
